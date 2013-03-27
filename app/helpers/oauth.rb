@@ -15,7 +15,7 @@ helpers do
 		request_token = session[:oauth][:request_token]
 		request_token_secret = session[:oauth][:request_token_secret]
 		if request_token.nil? || request_token_secret.nil?
-		  @request_token = @consumer.get_request_token(oauth_callback: "http://#{host}/auth")
+		  @request_token = @consumer.get_request_token(oauth_callback: "http://quiet-beach-2860.herokuapp.com/auth")
 		  session[:oauth][:request_token] = @request_token.token 
 		  session[:oauth][:request_token_secret] = @request_token.secret
 		 else
@@ -38,11 +38,6 @@ helpers do
 	end
 
 
-	def store_access_token
-		access_token = @request_token.get_access_token(oauth_verifier: request.params[:oauth_verifier])
-		session[:oauth][:access_token] = access_token.token 
-		session[:oauth][:access_token_secret] = access_token.secret
-	end
 	def client
 		@client
 	end
