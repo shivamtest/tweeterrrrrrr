@@ -5,7 +5,9 @@ helpers do
 		host = request.host
 		host << ":9292" if request.host == "localhost"
 	  consumer_key = ENV['TWITTER_KEY']
+	  puts consumer_key
     consumer_secret = ENV['TWITTER_SECRET']
+    puts consumer_secret
 	  @consumer = OAuth::Consumer.new(consumer_key, consumer_secret, site: "http://api.twitter.com")
 	end
 
@@ -13,7 +15,7 @@ helpers do
 		request_token = session[:oauth][:request_token]
 		request_token_secret = session[:oauth][:request_token_secret]
 		if request_token.nil? || request_token_secret.nil?
-		  @request_token = @consumer.get_request_token(oauth_callback: "http://localhost:9292/auth")
+		  @request_token = @consumer.get_request_token(oauth_callback: "http://#{host}/auth")
 		  session[:oauth][:request_token] = @request_token.token 
 		  session[:oauth][:request_token_secret] = @request_token.secret
 		 else
